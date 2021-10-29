@@ -159,7 +159,7 @@ class StatisticsView(TemplateView):
                         'executed': 'success',
                         'not_executed': 'dark'
                     }[status[0]],
-                    'percent': Reservation.objects.filter(status=status[0]).count() * 100 / total
+                    'percent': str(Reservation.objects.filter(status=status[0]).count() * 100 / total)
                 }
                 for status in STATUS
             }
