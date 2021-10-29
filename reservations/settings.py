@@ -167,6 +167,9 @@ if platform.system() == 'Windows':
     PDF_CONFIG = pdfkit.configuration(
         wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'))
 else:
-    WKHTMLTOPDF_CMD = os.subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')],
-                                          stdout=os.subprocess.PIPE).communicate()[0].strip()
-    PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+    PDF_CONFIG = pdfkit.configuration(
+        wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf'))
+    # WKHTMLTOPDF_CMD = os.subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')],
+    #                                       stdout=os.subprocess.PIPE).communicate()[0].strip()
+    # PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+#
