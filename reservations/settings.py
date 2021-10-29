@@ -19,21 +19,22 @@ import pdfkit
 from dotenv import dotenv_values
 
 from misc.utils import words
+from reservations import config
 
 environ = dotenv_values()
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = config.BASE_DIR
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bq9wm1ao%ypz44v)y#c)jo)hkzurv#ppscpfs!54-*a99fg4#5'
+SECRET_KEY = config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config.ALLOWED_HOSTS
 
 # Application definition
 
@@ -83,13 +84,7 @@ WSGI_APPLICATION = 'reservations.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / environ['DATABASE_NAME'],
-    }
-}
+DATABASES = config.DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

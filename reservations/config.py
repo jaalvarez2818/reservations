@@ -1,9 +1,10 @@
 import os
 from dotenv import dotenv_values
-
-from reservations.settings import BASE_DIR
+from pathlib import Path
 
 environ = dotenv_values()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 """   
     PRODUCTION = 1 -->  Cargar las variables desde las variables entorno del sistema
@@ -20,7 +21,7 @@ if PRODUCTION:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / environ['DATABASE_NAME'],
+            'NAME': os.path.join(BASE_DIR, os.environ.get('DATABASE_NAME')),
         }
     }
 
@@ -31,6 +32,6 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / environ['DATABASE_NAME'],
+            'NAME': os.path.join(BASE_DIR, environ.get('DATABASE_NAME')),
         }
     }
