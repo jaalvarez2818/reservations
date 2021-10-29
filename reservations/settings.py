@@ -163,12 +163,12 @@ SERVER_URL = config.SERVER_URL
 #     PDF_TOOL_PATH = r'/usr/bin/wkhtmltopdf'
 # PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=PDF_TOOL_PATH)
 
-if platform.system() == 'Windows':
-    PDF_CONFIG = pdfkit.configuration(
-        wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'))
-else:
-    PDF_CONFIG = pdfkit.configuration(wkhtmltopdf='./bin/wkhtmltopdf')
-    # WKHTMLTOPDF_CMD = os.subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')],
-    #                                       stdout=os.subprocess.PIPE).communicate()[0].strip()
-    # PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
-#
+# if platform.system() == 'Windows':
+#     PDF_CONFIG = pdfkit.configuration(
+#         wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'))
+# else:
+#     PDF_CONFIG = pdfkit.configuration(wkhtmltopdf='./bin/wkhtmltopdf')
+#     # WKHTMLTOPDF_CMD = os.subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')],
+#     #                                       stdout=os.subprocess.PIPE).communicate()[0].strip()
+#     # PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+# #
