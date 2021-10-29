@@ -1,0 +1,42 @@
+[
+  {
+    "model": "misc.roomtypology",
+    "pk": 1,
+    "fields": {
+      "name": "Individual",
+      "max_people": 1,
+      "price": 20,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.roomtypology",
+    "pk": 2,
+    "fields": {
+      "name": "Doble",
+      "max_people": 2,
+      "price": 30,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.roomtypology",
+    "pk": 3,
+    "fields": {
+      "name": "Triple",
+      "max_people": 3,
+      "price": 40,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.roomtypology",
+    "pk": 4,
+    "fields": {
+      "name": "Cuádruple",
+      "max_people": 4,
+      "price": 50,
+      "is_active": true
+    }
+  }
+]

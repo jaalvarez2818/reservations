@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static i18n custom_filters %}
+
+{% block content %}
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                         class="kt-svg-icon">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect id="bound" x="0" y="0" width="24" height="24"/>
+                            <path d="M13.5,21 L13.5,18 C13.5,17.4477153 13.0522847,17 12.5,17 L11.5,17 C10.9477153,17 10.5,17.4477153 10.5,18 L10.5,21 L5,21 L5,4 C5,2.8954305 5.8954305,2 7,2 L17,2 C18.1045695,2 19,2.8954305 19,4 L19,21 L13.5,21 Z M9,4 C8.44771525,4 8,4.44771525 8,5 L8,6 C8,6.55228475 8.44771525,7 9,7 L10,7 C10.5522847,7 11,6.55228475 11,6 L11,5 C11,4.44771525 10.5522847,4 10,4 L9,4 Z M14,4 C13.4477153,4 13,4.44771525 13,5 L13,6 C13,6.55228475 13.4477153,7 14,7 L15,7 C15.5522847,7 16,6.55228475 16,6 L16,5 C16,4.44771525 15.5522847,4 15,4 L14,4 Z M9,8 C8.44771525,8 8,8.44771525 8,9 L8,10 C8,10.5522847 8.44771525,11 9,11 L10,11 C10.5522847,11 11,10.5522847 11,10 L11,9 C11,8.44771525 10.5522847,8 10,8 L9,8 Z M9,12 C8.44771525,12 8,12.4477153 8,13 L8,14 C8,14.5522847 8.44771525,15 9,15 L10,15 C10.5522847,15 11,14.5522847 11,14 L11,13 C11,12.4477153 10.5522847,12 10,12 L9,12 Z M14,12 C13.4477153,12 13,12.4477153 13,13 L13,14 C13,14.5522847 13.4477153,15 14,15 L15,15 C15.5522847,15 16,14.5522847 16,14 L16,13 C16,12.4477153 15.5522847,12 15,12 L14,12 Z"
+                                  id="Combined-Shape" fill="#000000"/>
+                            <rect id="Rectangle-Copy-2" fill="#FFFFFF" x="13" y="8" width="3" height="3"
+                                  rx="1"/>
+                            <path d="M4,21 L20,21 C20.5522847,21 21,21.4477153 21,22 L21,22.4 C21,22.7313708 20.7313708,23 20.4,23 L3.6,23 C3.26862915,23 3,22.7313708 3,22.4 L3,22 C3,21.4477153 3.44771525,21 4,21 Z"
+                                  id="Rectangle-2" fill="#000000" opacity="0.3"/>
+                        </g>
+                    </svg>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    {% trans 'reservations'|capfirst %}
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="dropdown dropdown-inline">
+                        <button type="button" class="btn btn-brand btn-icon-sm" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <i class="flaticon2-plus"></i> {% trans 'reservate'|capfirst %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <form method="get" id="filters">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="status">{% trans 'status'|capfirst %}</label>
+                        <select name="status" id="status" class="form-control"
+                                onchange="$('#filters').submit()">
+                            <option value="">{% trans 'all'|capfirst %}</option>
+                            {% for status in statuses %}
+                                <option value="{{ status.0 }}"
+                                        {% if status.0 == request.GET.status %}selected{% endif %}>
+                                    {{ status.1|capfirst }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="room_typology">{% trans 'room typology'|capfirst %}</label>
+                        <select name="room_typology" id="room_typology" class="form-control"
+                                onchange="$('#filters').submit()">
+                            <option value="">{% trans 'all'|capfirst %}</option>
+                            {% for room_typology in room_typologies %}
+                                <option value="{{ room_typology.pk }}"
+                                        {% if room_typology.pk|striptags == request.GET.room_typology|striptags %}selected{% endif %}>
+                                    {{ room_typology.name|capfirst }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    {% if not object_list %}
+                        <div class="alert alert-info">
+                            {% trans 'no reservations availables'|capfirst %}.
+                        </div>
+                    {% else %}
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="text-center font-weight-bold">{% trans 'name'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'start date'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'end date'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'status'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'guests'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'room typology'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'actions'|upper %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in object_list %}
+                                <tr>
+                                    <td class="text-center">{{ item.name }}</td>
+                                    <td class="text-center">{{ item.start_date|show_date|safe }}</td>
+                                    <td class="text-center">{{ item.end_date|show_date|safe }}</td>
+                                    <td class="text-center">
+                                        <div class="badge badge-{{ item.status_color }}">
+                                            {{ item.get_status_display|capfirst }}
+                                        </div>
+                                    </td>
+                                    <td class="text-center"><b>{{ item.guests }}</b></td>
+                                    <td class="text-center">
+                                        <div class="badge badge-primary">
+                                            {{ item.room_typology|capfirst }}
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        {% with item.status_flow as flow %}
+                                            <div class="dropdown">
+                                                <a href="{% url 'reservation_details' item.locator %}"
+                                                   class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                                   title="{% trans 'view details'|capfirst %}"
+                                                   data-toggle="kt-tooltip" data-skin="dark">
+                                                    <i class="la la-eye"></i>
+                                                </a>
+                                                <a href="{% url 'reservation_pdf' item.locator %}"
+                                                   class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                                   title="{% trans 'print'|capfirst %}"
+                                                   data-toggle="kt-tooltip" data-skin="dark">
+                                                    <i class="la la-print"></i>
+                                                </a>
+                                                {% if flow %}
+                                                    <span data-toggle="dropdown">
+                                                        <a href="javascript:;"
+                                                           class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                                           title="{% trans 'more actions'|capfirst %}"
+                                                           data-toggle="kt-tooltip" data-skin="dark">
+                                                            <i class="la la-cog"></i>
+                                                        </a>
+                                                    </span>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        {% for status in flow %}
+                                                            <a class="dropdown-item" href="{{ status.url }}">
+                                                                <i class="{{ status.icon }}"></i>
+                                                                {{ status.text|capfirst }}
+                                                            </a>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endwith %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% include 'common/pagination.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

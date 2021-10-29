@@ -1,0 +1,29 @@
+{% load static %}
+
+<script src="{% static 'plugins/webfont.js' %}"></script>
+<script>
+    WebFont.load({
+        google: {
+            "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]
+        },
+        active: function () {
+            sessionStorage.fonts = true;
+        }
+    });
+</script>
+
+<link href="{% static 'plugins/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/animate.css/animate.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/toastr/build/toastr.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/morris.js/morris.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/sweetalert2/dist/sweetalert2.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/socicon/css/socicon.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/line-awesome/css/line-awesome.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/flaticon/flaticon.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/flaticon2/flaticon.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/fontawesome5/css/all.min.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/base/style.bundle.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/skins/header/base/light.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/skins/header/menu/light.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/skins/brand/dark.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'plugins/skins/aside/dark.css' %}" rel="stylesheet" type="text/css"/>

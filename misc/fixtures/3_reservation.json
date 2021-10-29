@@ -1,0 +1,38 @@
+[
+  {
+    "model": "misc.reservation",
+    "pk": 1,
+    "fields": {
+      "start_date": "2021-10-28",
+      "end_date": "2021-10-30",
+      "room_typology": 3,
+      "guests": 3,
+      "name": "José Angel Alvarez Abraira",
+      "email": "jaalvarez2818@gmail.com",
+      "phone": "+5355161403",
+      "price": 80,
+      "locator": "RES-20211028-001",
+      "room": 18,
+      "status": "pendent",
+      "datetime": "2021-10-28T12:13:44.969Z"
+    }
+  },
+  {
+    "model": "misc.reservation",
+    "pk": 2,
+    "fields": {
+      "start_date": "2021-11-03",
+      "end_date": "2021-11-10",
+      "room_typology": 2,
+      "guests": 2,
+      "name": "Chabelly Motes Peña",
+      "email": "chabellybebe@gmail.com",
+      "phone": "+5353613988",
+      "price": 210,
+      "locator": "RES-20211028-002",
+      "room": 13,
+      "status": "not_executed",
+      "datetime": "2021-10-28T12:13:44.969Z"
+    }
+  }
+]

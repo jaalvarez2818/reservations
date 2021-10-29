@@ -1,0 +1,227 @@
+[
+  {
+    "model": "misc.room",
+    "pk": 1,
+    "fields": {
+      "number": 101,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 2,
+    "fields": {
+      "number": 102,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 3,
+    "fields": {
+      "number": 103,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 4,
+    "fields": {
+      "number": 104,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 5,
+    "fields": {
+      "number": 105,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 6,
+    "fields": {
+      "number": 106,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 7,
+    "fields": {
+      "number": 107,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 8,
+    "fields": {
+      "number": 108,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 9,
+    "fields": {
+      "number": 109,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 10,
+    "fields": {
+      "number": 110,
+      "room_typology": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 11,
+    "fields": {
+      "number": 201,
+      "room_typology": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 12,
+    "fields": {
+      "number": 202,
+      "room_typology": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 13,
+    "fields": {
+      "number": 203,
+      "room_typology": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 14,
+    "fields": {
+      "number": 204,
+      "room_typology": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 15,
+    "fields": {
+      "number": 205,
+      "room_typology": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 16,
+    "fields": {
+      "number": 301,
+      "room_typology": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 17,
+    "fields": {
+      "number": 302,
+      "room_typology": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 18,
+    "fields": {
+      "number": 303,
+      "room_typology": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 19,
+    "fields": {
+      "number": 304,
+      "room_typology": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 20,
+    "fields": {
+      "number": 401,
+      "room_typology": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 21,
+    "fields": {
+      "number": 402,
+      "room_typology": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 22,
+    "fields": {
+      "number": 403,
+      "room_typology": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 23,
+    "fields": {
+      "number": 404,
+      "room_typology": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 24,
+    "fields": {
+      "number": 405,
+      "room_typology": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.room",
+    "pk": 25,
+    "fields": {
+      "number": 406,
+      "room_typology": 4,
+      "is_active": true
+    }
+  }
+]

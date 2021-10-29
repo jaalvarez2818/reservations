@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static i18n custom_filters %}
+
+{% block content %}
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                         class="kt-svg-icon">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect id="bound" x="0" y="0" width="24" height="24"/>
+                            <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+                                  id="Path-2" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                            <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+                                  id="Path" fill="#000000" fill-rule="nonzero"/>
+                        </g>
+                    </svg>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    {% trans 'locator'|capfirst %}
+                </h3>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <div class="row">
+                <div class="col-md-10">
+                    <form method="post" id="search">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" placeholder="{% trans 'locator'|capfirst %}" class="form-control"
+                                   name="locator" id="locator" maxlength="16" required value="{{ locator }}">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" form="search"
+                            class="btn btn-primary btn-icon-sm btn-block">
+                        <i class="fa fa-search"></i> {% trans 'search'|capfirst %}
+                    </button>
+                </div>
+            </div>
+            {% if found is not None %}
+                {% if not found %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-info">
+                                {% trans 'A reservation was not found with this locator' %}.
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="row mt-4">
+                        <div class="col-md-10">
+                            <table class="table">
+                                <tr>
+                                    <td colspan="2">
+                                        <i class="fa fa-user mr-2"></i>
+                                        <b>{% trans 'name'|capfirst %}:</b> {{ reservation.name }}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-envelope mr-2"></i>
+                                        <b>{% trans 'email'|capfirst %}:</b>
+                                        <a href="mailto:{{ reservation.email }}" data-toggle="kt-tooltip"
+                                           data-skin="dark"
+                                           title="{% trans 'send email'|capfirst %}">{{ reservation.email }}</a>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-phone fa-rotate-90 mr-2"></i>
+                                        <b>{% trans 'phone'|capfirst %}:</b>
+                                        <a href="tel:{{ reservation.phone }}" data-toggle="kt-tooltip" data-skin="dark"
+                                           title="{% trans 'call'|capfirst %}">{{ reservation.phone }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-calendar-alt mr-2"></i>
+                                        <b>{% trans 'start date'|capfirst %}:</b>
+                                        {{ reservation.start_date|date:'SHORT_DATE_FORMAT' }}
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-calendar-alt mr-2"></i>
+                                        <b>{% trans 'end date'|capfirst %}:</b>
+                                        {{ reservation.end_date|date:'SHORT_DATE_FORMAT' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td {% if not reservation.room %}colspan="2"{% endif %}>
+                                        <b>{% trans 'room typology'|capfirst %}:</b>
+                                        {{ reservation.room_typology|capfirst }}
+                                        ({{ reservation.room_typology.price|show_price|safe }}/{% trans 'day' %})
+                                    </td>
+                                    {% if reservation.room %}
+                                        <td>
+                                            <b>{% trans 'room'|capfirst %}:</b>
+                                            {{ reservation.room }}
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-users mr-2"></i>
+                                        <b>{% trans 'guests'|capfirst %}:</b>
+                                        {{ reservation.guests }}
+                                    </td>
+                                    <td>
+                                        <b>{% trans 'days'|capfirst %}:</b>
+                                        {{ reservation.days }}
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <img src="data:image/png;base64,{{ reservation.get_qr }}" width="150">
+                            <h1>
+                                {{ reservation.price|show_price|safe }} <br>
+                                <small class="badge badge-{{ reservation.status_color }}" style="font-size: 14pt;">
+                                    {{ reservation.get_status_display|capfirst }}
+                                </small>
+                            </h1>
+                        </div>
+                        <div class="col-md-12">
+                            <i>* {% trans 'You can use the reservation locator or scan the QR code to know the status of the reservation at any time' %}.</i>
+                        </div>
+                        <div class="col-md-12">
+                            <a href="{% url 'reservation_pdf' reservation.locator %}"
+                               class="btn btn-primary btn-icon-sm pull-right">
+                                <i class="fa fa-print"></i> {% trans 'print'|capfirst %}
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% load static i18n custom_filters %}
+{% get_current_language as current_language %}
+{% get_language_info for current_language as name_current_language %}
+
+<div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed ">
+
+    <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i
+            class="la la-close"></i></button>
+    <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+
+    </div>
+
+    <div class="kt-header__topbar">
+        <div class="kt-header__topbar-item kt-header__topbar-item--langs">
+            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                <span class="kt-header__topbar-icon">
+                    <img class="" src="{% static 'img/flags/' %}{{ current_language }}.svg" alt=""/>
+                </span>
+            </div>
+            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround">
+                <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
+                    {% get_available_languages as languages %}
+                    {% for lang_code, lang_name in languages %}
+                        {% language lang_code %}
+                            {% if lang_code != current_language %}
+                                <li class="kt-nav__item kt-nav__item--active">
+                                    <a href="/{{ lang_code }}{{ request.path|remove:current_language }}"
+                                       class="kt-nav__link">
+                                        <span class="kt-nav__link-icon">
+                                            <img src="{% static 'img/flags/' %}{{ lang_code }}.svg" alt=""/>
+                                        </span>
+                                        <span class="kt-nav__link-text">{{ lang_name|capfirst }}</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endlanguage %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

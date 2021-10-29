@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static i18n custom_filters %}
+
+{% block content %}
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                         height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect id="bound" x="0" y="0" width="24" height="24"/>
+                            <path d="M3,12 C3,12 5.45454545,6 12,6 C16.9090909,6 21,12 21,12 C21,12 16.9090909,18 12,18 C5.45454545,18 3,12 3,12 Z"
+                                  id="Shape" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                            <path d="M12,15 C10.3431458,15 9,13.6568542 9,12 C9,10.3431458 10.3431458,9 12,9 C13.6568542,9 15,10.3431458 15,12 C15,13.6568542 13.6568542,15 12,15 Z"
+                                  id="Path" fill="#000000" opacity="0.3"/>
+                        </g>
+                    </svg>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    {% trans 'reservation'|capfirst %}
+                    <b>{{ object.locator }}</b>
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="dropdown dropdown-inline">
+                        <a href="javascript:history.go(-1)" class="btn btn-danger btn-icon-sm">
+                            <i class="fa fa-angle-left"></i> {% trans 'go back'|capfirst %}
+                        </a>
+                        <a href="{% url 'reservation_pdf' object.locator %}"
+                           class="btn btn-primary btn-icon-sm">
+                            <i class="fa fa-print"></i> {% trans 'print'|capfirst %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <div class="row mt-4">
+                <div class="col-md-10">
+                    <table class="table">
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-user mr-2"></i>
+                                <b>{% trans 'name'|capfirst %}:</b> {{ object.name }}
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-envelope mr-2"></i>
+                                <b>{% trans 'email'|capfirst %}:</b>
+                                <a href="mailto:{{ object.email }}" data-toggle="kt-tooltip" data-skin="dark"
+                                   title="{% trans 'send email'|capfirst %}">{{ object.email }}</a>
+                            </td>
+                            <td>
+                                <i class="fa fa-phone fa-rotate-90 mr-2"></i>
+                                <b>{% trans 'phone'|capfirst %}:</b>
+                                <a href="tel:{{ object.phone }}" data-toggle="kt-tooltip" data-skin="dark"
+                                   title="{% trans 'call'|capfirst %}">{{ object.phone }}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-calendar-alt mr-2"></i>
+                                <b>{% trans 'start date'|capfirst %}:</b>
+                                {{ object.start_date|date:'SHORT_DATE_FORMAT' }}
+                            </td>
+                            <td>
+                                <i class="fa fa-calendar-alt mr-2"></i>
+                                <b>{% trans 'end date'|capfirst %}:</b>
+                                {{ object.end_date|date:'SHORT_DATE_FORMAT' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td {% if not object.room %}colspan="2"{% endif %}>
+                                <b>{% trans 'room typology'|capfirst %}:</b>
+                                {{ object.room_typology|capfirst }}
+                                ({{ object.room_typology.price|show_price|safe }}/{% trans 'day' %})
+                            </td>
+                            {% if object.room %}
+                                <td>
+                                    <b>{% trans 'room'|capfirst %}:</b>
+                                    {{ object.room }}
+                                </td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-users mr-2"></i>
+                                <b>{% trans 'guests'|capfirst %}:</b>
+                                {{ object.guests }}
+                            </td>
+                            <td>
+                                <b>{% trans 'days'|capfirst %}:</b>
+                                {{ object.days }}
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                </div>
+                <div class="col-md-2 text-center">
+                    <img src="data:image/png;base64,{{ object.get_qr }}" width="150">
+                    <h1>
+                        {{ object.price|show_price|safe }} <br>
+                        <small class="badge badge-{{ object.status_color }}" style="font-size: 14pt;">
+                            {{ object.get_status_display|capfirst }}
+                        </small>
+                    </h1>
+                </div>
+                <div class="col-md-12">
+                    <i>* {% trans 'You can use the reservation locator or scan the QR code to know the status of the reservation at any time' %}.</i>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

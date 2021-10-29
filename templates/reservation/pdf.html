@@ -1,0 +1,83 @@
+{% load i18n custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans 'reservation'|capfirst %} {{ reservation.locator }}</title>
+</head>
+<body>
+<div style="width: 100%">
+    <div style="width: 80%; float: left; display: inline-block;">
+        <h2>{% trans 'reservation'|capfirst %} {{ reservation.locator }}</h2>
+        <table style="width: 100%" cellspacing="10">
+            <tr>
+                <td colspan="2">
+                    <b>{% trans 'name'|capfirst %}:</b> {{ reservation.name }}
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{% trans 'email'|capfirst %}:</b>
+                    <a href="mailto:{{ reservation.email }}" data-toggle="kt-tooltip" data-skin="dark"
+                       title="{% trans 'send email'|capfirst %}">{{ reservation.email }}</a>
+                </td>
+                <td>
+                    <b>{% trans 'phone'|capfirst %}:</b>
+                    <a href="tel:{{ reservation.phone }}" data-toggle="kt-tooltip" data-skin="dark"
+                       title="{% trans 'call'|capfirst %}">{{ reservation.phone }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{% trans 'start date'|capfirst %}:</b>
+                    {{ reservation.start_date|date:'SHORT_DATE_FORMAT' }}
+                </td>
+                <td>
+                    <b>{% trans 'end date'|capfirst %}:</b>
+                    {{ reservation.end_date|date:'SHORT_DATE_FORMAT' }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td {% if not reservation.room %}colspan="2"{% endif %}>
+                    <b>{% trans 'room typology'|capfirst %}:</b>
+                    {{ reservation.room_typology|capfirst }}
+                    ({{ reservation.room_typology.price|show_price|safe }}/{% trans 'day' %})
+                </td>
+                {% if reservation.room %}
+                    <td>
+                        <b>{% trans 'room'|capfirst %}:</b>
+                        {{ reservation.room }}
+                    </td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>
+                    <b>{% trans 'guests'|capfirst %}:</b>
+                    {{ reservation.guests }}
+                </td>
+                <td>
+                    <b>{% trans 'days'|capfirst %}:</b>
+                    {{ reservation.days }}
+                </td>
+            </tr>
+        </table>
+        <hr>
+    </div>
+    <div style="width: 20%; float: right; display: inline-block; text-align: center">
+        <img src="data:image/png;base64,{{ reservation.get_qr }}" width="150">
+        <h1 style="margin-top: -8pt;">
+            {{ reservation.price|show_price|safe }} <br>
+            <small><b>{{ reservation.get_status_display|capfirst }}</b></small>
+        </h1>
+    </div>
+    <div style="width: 100%; clear: left">
+        <i>* {% trans 'You can use the reservation locator or scan the QR code to know the status of the reservation at any time'|capfirst %}.</i>
+    </div>
+</div>
+</body>
+</html>
