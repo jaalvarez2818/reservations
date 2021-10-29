@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import platform
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -157,8 +157,16 @@ PHONENUMBER_DEFAULT_REGION = 'ES'
 
 SERVER_URL = config.SERVER_URL
 
-if os.name == 'nt':
-    PDF_TOOL_PATH = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+# if os.name == 'nt':
+#     PDF_TOOL_PATH = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+# else:
+#     PDF_TOOL_PATH = r'/usr/bin/wkhtmltopdf'
+# PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=PDF_TOOL_PATH)
+
+if platform.system() == 'Windows':
+    PDF_CONFIG = pdfkit.configuration(
+        wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'))
 else:
-    PDF_TOOL_PATH = r'/usr/bin/wkhtmltopdf'
-PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=PDF_TOOL_PATH)
+    WKHTMLTOPDF_CMD = os.subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')],
+                                          stdout=os.subprocess.PIPE).communicate()[0].strip()
+    PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
