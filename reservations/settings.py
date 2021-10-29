@@ -155,7 +155,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PHONENUMBER_DEFAULT_REGION = 'ES'
 
-SERVER_URL = environ['SERVER_URL']
+SERVER_URL = config.SERVER_URL
 
 if os.name == 'nt':
     PDF_TOOL_PATH = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'

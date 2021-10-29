@@ -24,7 +24,7 @@ if PRODUCTION:
             'NAME': os.path.join(BASE_DIR, os.environ.get('DATABASE_NAME')),
         }
     }
-
+    SERVER_URL = os.environ.get('SERVER_URL')
 else:
     SECRET_KEY = environ.get('SECRET_KEY')
     DEBUG = not PRODUCTION
@@ -35,3 +35,4 @@ else:
             'NAME': os.path.join(BASE_DIR, environ.get('DATABASE_NAME')),
         }
     }
+    SERVER_URL = environ.get('SERVER_URL')
