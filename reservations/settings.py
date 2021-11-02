@@ -16,6 +16,7 @@ from pathlib import Path
 import os
 
 import pdfkit
+from django.utils.timezone import now
 from dotenv import dotenv_values
 
 from misc.utils import words
@@ -118,7 +119,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-TIME_ZONE = 'UTC+2'
+TIME_ZONE = 'UTC+1'
 
 USE_I18N = True
 

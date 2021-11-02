@@ -9,6 +9,8 @@
 
     {% include 'common/styles.html' %}
 
+    <link rel="icon" href="{% static 'img/favicon.png' %}">
+
 </head>
 
 <body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
@@ -69,7 +71,8 @@
                 <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1"
                      data-ktmenu-dropdown-timeout="500">
                     <ul class="kt-menu__nav ">
-                        <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true">
+                        <li class="kt-menu__item {% if 'locator' in request.path %}kt-menu__item--active{% endif %}"
+                            aria-haspopup="true">
                             <a href="{% url 'locator' %}" class="kt-menu__link ">
                                 <span class="kt-menu__link-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -87,7 +90,8 @@
                                 <span class="kt-menu__link-text">{% trans 'locator'|capfirst %}</span>
                             </a>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true">
+                        <li class="kt-menu__item {% if request.path == '/es/' or request.path == '/en/' %}kt-menu__item--active{% endif %}"
+                            aria-haspopup="true">
                             <a href="{% url 'reservation_list' %}" class="kt-menu__link ">
                                 <span class="kt-menu__link-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -107,7 +111,8 @@
                                 <span class="kt-menu__link-text">{% trans 'reservations'|capfirst %}</span>
                             </a>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true">
+                        <li class="kt-menu__item {% if 'unpleasant' in request.path %}kt-menu__item--active{% endif %}"
+                            aria-haspopup="true">
                             <a href="{% url 'unpleasant_customer_list' %}" class="kt-menu__link ">
                                 <span class="kt-menu__link-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -125,7 +130,8 @@
                                 <span class="kt-menu__link-text">{% trans 'unpleasant customers'|capfirst %}</span>
                             </a>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true">
+                        <li class="kt-menu__item {% if 'statistics' in request.path %}kt-menu__item--active{% endif %}"
+                            aria-haspopup="true">
                             <a href="{% url 'statistics' %}" class="kt-menu__link ">
                                 <span class="kt-menu__link-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
