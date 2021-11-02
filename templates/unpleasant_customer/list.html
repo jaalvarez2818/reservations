@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static i18n custom_filters %}
+
+{% block content %}
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <polygon id="Shape" points="0 0 24 0 24 24 0 24"/>
+                            <path d="M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z M21,8 L17,8 C16.4477153,8 16,7.55228475 16,7 C16,6.44771525 16.4477153,6 17,6 L21,6 C21.5522847,6 22,6.44771525 22,7 C22,7.55228475 21.5522847,8 21,8 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                            <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" id="Mask-Copy" fill="#000000" fill-rule="nonzero"/>
+                        </g>
+                    </svg>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    {% trans 'unpleasant customers'|capfirst %}
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="dropdown dropdown-inline">
+                        <a href="{% url 'unpleasant_customer_create' %}" class="btn btn-brand btn-icon-sm">
+                            <i class="flaticon2-plus"></i> {% trans 'new'|capfirst %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    {% if not object_list %}
+                        <div class="alert alert-info">
+                            {% trans 'no unpleasant customers availables'|capfirst %}.
+                        </div>
+                    {% else %}
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="text-center font-weight-bold">{% trans 'email'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'datetime'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'is active'|upper %}</th>
+                                <th class="text-center font-weight-bold">{% trans 'actions'|upper %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in object_list %}
+                                <tr>
+                                    <td class="text-center">{{ item.email|show_email|safe }}</td>
+                                    <td class="text-center">{{ item.datetime|show_datetime|safe }}</td>
+                                    <td class="text-center">
+                                        <a href="{% url 'unpleasant_customer_active' item.pk %}" data-skin="dark"
+                                           data-toggle="kt-tooltip" title="{% if item.is_active %}{% trans 'disable'|capfirst %}{% else %}{% trans 'enable'|capfirst %}{% endif %}">
+                                            {{ item.is_active|show_boolean|safe }}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <span title="{% trans 'view details'|capfirst %}"
+                                               data-toggle="kt-tooltip" data-skin="dark">
+                                            <a href="#details{{ item.pk }}" data-toggle="modal"
+                                               class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                                <i class="la la-eye"></i>
+                                            </a>
+                                        </span>
+                                        <div class="modal fade" id="details{{ item.pk }}" tabindex="-1"
+                                             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                            {% trans 'details'|capfirst %}
+                                                        </h5>
+                                                        <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-hover">
+                                                            <tr>
+                                                                <th class="text-left" width="150">
+                                                                    {% trans 'email'|capfirst %}:
+                                                                </th>
+                                                                <td class="text-left">
+                                                                    {{ item.email|show_email|safe }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="text-left">{% trans 'datetime'|capfirst %}:</th>
+                                                                <td class="text-left">
+                                                                    {{ item.datetime|show_datetime|safe }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="text-left">{% trans 'reason'|capfirst %}:</th>
+                                                                <td class="text-left">
+                                                                    {{ item.reason }}
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">
+                                                            {% trans 'close'|capfirst %}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{% url 'unpleasant_customer_update' item.pk %}"
+                                           class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                           title="{% trans 'edit'|capfirst %}"
+                                           data-toggle="kt-tooltip" data-skin="dark">
+                                            <i class="la la-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% include 'common/pagination.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,32 @@
+[
+  {
+    "model": "misc.unpleasantcustomer",
+    "pk": 1,
+    "fields": {
+      "email": "abc@gmail.com",
+      "datetime": "2021-10-28T12:13:44.969Z",
+      "reason": "Robo en la habitación",
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.unpleasantcustomer",
+    "pk": 2,
+    "fields": {
+      "email": "def@gmail.com",
+      "datetime": "2021-10-29T12:13:44.969Z",
+      "reason": "Agresión a la dueña de la habitación",
+      "is_active": true
+    }
+  },
+  {
+    "model": "misc.unpleasantcustomer",
+    "pk": 3,
+    "fields": {
+      "email": "ghi@gmail.com",
+      "datetime": "2021-10-30T12:13:44.969Z",
+      "reason": "Pérdida de la objetos",
+      "is_active": true
+    }
+  }
+]

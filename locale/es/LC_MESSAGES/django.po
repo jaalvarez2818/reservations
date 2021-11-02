@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-29 03:01-0400\n"
+"POT-Creation-Date: 2021-11-02 01:42-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1219,167 +1219,220 @@ msgid "approved"
 msgstr "aprobada"
 
 #: .\misc\utils\words.py:6
+msgid "create unpleasant customer"
+msgstr "crear cliente no grato"
+
+#: .\misc\utils\words.py:8 .\templates\unpleasant_customer\list.html:43
+#: .\templates\unpleasant_customer\list.html:90
 msgid "datetime"
 msgstr "fecha"
 
-#: .\misc\utils\words.py:7
+#: .\misc\utils\words.py:9 .\templates\unpleasant_customer\list.html:73
 msgid "details"
 msgstr "detalles"
 
-#: .\misc\utils\words.py:9 .\templates\reservation\details.html:53
+#: .\misc\utils\words.py:11 .\templates\reservation\details.html:53
 #: .\templates\reservation\locator.html:67 .\templates\reservation\pdf.html:22
+#: .\templates\unpleasant_customer\list.html:42
+#: .\templates\unpleasant_customer\list.html:83
 msgid "email"
 msgstr "correo electrónico"
 
-#: .\misc\utils\words.py:10 .\templates\reservation\details.html:72
+#: .\misc\utils\words.py:12 .\templates\reservation\details.html:72
 #: .\templates\reservation\list.html:81 .\templates\reservation\locator.html:87
 #: .\templates\reservation\pdf.html:38
 msgid "end date"
 msgstr "fecha de salida"
 
-#: .\misc\utils\words.py:11
+#: .\misc\utils\words.py:13
 msgid "english"
 msgstr "inglés"
 
-#: .\misc\utils\words.py:12
+#: .\misc\utils\words.py:14
 msgid "execute"
 msgstr "ejecutar"
 
-#: .\misc\utils\words.py:13
+#: .\misc\utils\words.py:15
 msgid "executed"
 msgstr "ejecutada"
 
-#: .\misc\utils\words.py:15 .\templates\reservation\details.html:95
+#: .\misc\utils\words.py:17 .\templates\reservation\details.html:95
 #: .\templates\reservation\list.html:83
 #: .\templates\reservation\locator.html:110 .\templates\reservation\pdf.html:60
 msgid "guests"
 msgstr "huéspedes"
 
-#: .\misc\utils\words.py:17
+#: .\misc\utils\words.py:19 .\templates\unpleasant_customer\list.html:44
 msgid "is active"
 msgstr "está activo"
 
-#: .\misc\utils\words.py:19
+#: .\misc\utils\words.py:21
 msgid "list"
 msgstr "listado"
 
-#: .\misc\utils\words.py:20 .\templates\base.html:88
+#: .\misc\utils\words.py:22 .\templates\base.html:87
 #: .\templates\reservation\locator.html:22
 #: .\templates\reservation\locator.html:32
 msgid "locator"
 msgstr "localizador"
 
-#: .\misc\utils\words.py:22
+#: .\misc\utils\words.py:24
 msgid "maximum of people"
 msgstr "cantidad de huéspedes"
 
-#: .\misc\utils\words.py:24 .\templates\reservation\details.html:46
+#: .\misc\utils\words.py:26 .\templates\reservation\details.html:46
 #: .\templates\reservation\list.html:79 .\templates\reservation\locator.html:60
 #: .\templates\reservation\pdf.html:16
 msgid "name"
 msgstr "nombre"
 
-#: .\misc\utils\words.py:25
+#: .\misc\utils\words.py:27
+msgid "no"
+msgstr "no"
+
+#: .\misc\utils\words.py:28
 msgid "no records"
 msgstr "no especificado"
 
-#: .\misc\utils\words.py:26
+#: .\misc\utils\words.py:29
 msgid "not execute"
 msgstr "no ejecutar"
 
-#: .\misc\utils\words.py:27
+#: .\misc\utils\words.py:30
 msgid "not executed"
 msgstr "no ejecutada"
 
-#: .\misc\utils\words.py:28
+#: .\misc\utils\words.py:31
 msgid "number"
 msgstr "número"
 
-#: .\misc\utils\words.py:30
+#: .\misc\utils\words.py:33
 msgid "pendent"
 msgstr "pendiente"
 
-#: .\misc\utils\words.py:31 .\templates\reservation\details.html:59
+#: .\misc\utils\words.py:34 .\templates\reservation\details.html:59
 #: .\templates\reservation\locator.html:74 .\templates\reservation\pdf.html:27
 msgid "phone"
 msgstr "número de teléfono"
 
-#: .\misc\utils\words.py:32
+#: .\misc\utils\words.py:35
 msgid "price"
 msgstr "precio"
 
-#: .\misc\utils\words.py:34
+#: .\misc\utils\words.py:37 .\templates\unpleasant_customer\list.html:96
+msgid "reason"
+msgstr "motivo"
+
+#: .\misc\utils\words.py:38
 msgid "rejected"
 msgstr "rechazada"
 
-#: .\misc\utils\words.py:35
+#: .\misc\utils\words.py:39
 msgid "reject"
 msgstr "rechazar"
 
-#: .\misc\utils\words.py:36 .\templates\reservation\details.html:21
+#: .\misc\utils\words.py:40 .\templates\reservation\details.html:21
 #: .\templates\reservation\pdf.html:7 .\templates\reservation\pdf.html:12
 msgid "reservation"
 msgstr "reservación"
 
-#: .\misc\utils\words.py:37
+#: .\misc\utils\words.py:41
 msgid "reservation approved"
 msgstr "reservación aprobada"
 
-#: .\misc\utils\words.py:38
+#: .\misc\utils\words.py:42
 msgid "reservation executed"
 msgstr "reservación ejecutada"
 
-#: .\misc\utils\words.py:39
+#: .\misc\utils\words.py:43
 msgid "reservation not executed"
 msgstr "reservación no ejecutada"
 
-#: .\misc\utils\words.py:40
+#: .\misc\utils\words.py:44
 msgid "reservation rejected"
 msgstr "reservación rechazada"
 
-#: .\misc\utils\words.py:41 .\templates\base.html:108
+#: .\misc\utils\words.py:45 .\templates\base.html:107
 #: .\templates\common\footer.html:5 .\templates\reservation\list.html:24
 msgid "reservations"
 msgstr "reservaciones"
 
-#: .\misc\utils\words.py:42 .\templates\reservation\details.html:87
+#: .\misc\utils\words.py:46 .\templates\reservation\details.html:87
 #: .\templates\reservation\locator.html:102 .\templates\reservation\pdf.html:53
 msgid "room"
 msgstr "habitación"
 
-#: .\misc\utils\words.py:43
+#: .\misc\utils\words.py:47
 msgid "rooms"
 msgstr "habitaciones"
 
-#: .\misc\utils\words.py:44 .\templates\reservation\details.html:81
+#: .\misc\utils\words.py:48 .\templates\reservation\details.html:81
 #: .\templates\reservation\list.html:55 .\templates\reservation\list.html:84
 #: .\templates\reservation\locator.html:96 .\templates\reservation\pdf.html:47
 msgid "room typology"
 msgstr "tipología de habitación"
 
-#: .\misc\utils\words.py:45
+#: .\misc\utils\words.py:49
 msgid "room typologies"
 msgstr "tipologías de habitaciones"
 
-#: .\misc\utils\words.py:47
+#: .\misc\utils\words.py:51 .\templates\reservation\details.html:55
+#: .\templates\reservation\locator.html:70 .\templates\reservation\pdf.html:24
+msgid "send email"
+msgstr "enviar correo electrónico"
+
+#: .\misc\utils\words.py:52
 msgid "spanish"
 msgstr "español"
 
-#: .\misc\utils\words.py:48 .\templates\reservation\details.html:67
+#: .\misc\utils\words.py:53 .\templates\reservation\details.html:67
 #: .\templates\reservation\list.html:80 .\templates\reservation\locator.html:82
 #: .\templates\reservation\pdf.html:34
 msgid "start date"
 msgstr "fecha de entrada"
 
-#: .\misc\utils\words.py:49 .\templates\base.html:126
+#: .\misc\utils\words.py:54 .\templates\base.html:143
 #: .\templates\reservation\statistics.html:22
 msgid "statistics"
 msgstr "estadísticas"
 
-#: .\misc\utils\words.py:50 .\templates\reservation\list.html:42
+#: .\misc\utils\words.py:55 .\templates\reservation\list.html:42
 #: .\templates\reservation\list.html:82
 msgid "status"
 msgstr "estado"
+
+#: .\misc\utils\words.py:57
+msgid "unpleasant customer"
+msgstr "cliente no grato"
+
+#: .\misc\utils\words.py:58
+msgid "unpleasant customer created successfully"
+msgstr "cliente no grato creado satisfactoriamente"
+
+#: .\misc\utils\words.py:59
+msgid "unpleasant customer enabled successfully"
+msgstr "cliente no grato habilitado satisfactoriamente"
+
+#: .\misc\utils\words.py:60
+msgid "unpleasant customer disabled successfully"
+msgstr "cliente no grato deshabilitado satisfactoriamente"
+
+#: .\misc\utils\words.py:61
+msgid "unpleasant customer updated successfully"
+msgstr "cliente no grato editado satisfactoriamente"
+
+#: .\misc\utils\words.py:62 .\templates\base.html:125
+#: .\templates\unpleasant_customer\list.html:18
+msgid "unpleasant customers"
+msgstr "clientes no gratos"
+
+#: .\misc\utils\words.py:63
+msgid "update unpleasant customer"
+msgstr "editar cliente no grato"
+
+#: .\misc\utils\words.py:65
+msgid "yes"
+msgstr "si"
 
 #: .\templates\reservation\details.html:29
 msgid "go back"
@@ -1390,11 +1443,6 @@ msgstr "ir atrás"
 #: .\templates\reservation\locator.html:136
 msgid "print"
 msgstr "imprimir"
-
-#: .\templates\reservation\details.html:55
-#: .\templates\reservation\locator.html:70 .\templates\reservation\pdf.html:24
-msgid "send email"
-msgstr "enviar correo electrónico"
 
 #: .\templates\reservation\details.html:61
 #: .\templates\reservation\locator.html:76 .\templates\reservation\pdf.html:29
@@ -1433,10 +1481,12 @@ msgid "no reservations availables"
 msgstr "no hay reservaciones disponibles"
 
 #: .\templates\reservation\list.html:85
+#: .\templates\unpleasant_customer\list.html:45
 msgid "actions"
 msgstr "acciones"
 
 #: .\templates\reservation\list.html:110
+#: .\templates\unpleasant_customer\list.html:60
 msgid "view details"
 msgstr "ver detalles"
 
@@ -1456,6 +1506,38 @@ msgstr "No se encontró una reserva con este localizador"
 msgid "raised in total"
 msgstr "recaudados en total"
 
-#: .\templates\reservation\statistics.html:56
+#: .\templates\reservation\statistics.html:55
 msgid "summary"
 msgstr "resumen"
+
+#: .\templates\unpleasant_customer\form.html:24
+msgid "save"
+msgstr "guardar"
+
+#: .\templates\unpleasant_customer\form.html:27
+msgid "cancel"
+msgstr "cancelar"
+
+#: .\templates\unpleasant_customer\list.html:25
+msgid "new"
+msgstr "nuevo"
+
+#: .\templates\unpleasant_customer\list.html:36
+msgid "no unpleasant customers availables"
+msgstr "no hay clientes no gratos disponibles"
+
+#: .\templates\unpleasant_customer\list.html:55
+msgid "disable"
+msgstr "deshabilitar"
+
+#: .\templates\unpleasant_customer\list.html:55
+msgid "enable"
+msgstr "habilitar"
+
+#: .\templates\unpleasant_customer\list.html:106
+msgid "close"
+msgstr "cerrar"
+
+#: .\templates\unpleasant_customer\list.html:114
+msgid "edit"
+msgstr "editar"

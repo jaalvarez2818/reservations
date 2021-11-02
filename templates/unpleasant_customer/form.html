@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static i18n custom_filters %}
+
+{% block content %}
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    {% if action == 'create' %}
+                        <i class="la la-plus"></i>
+                    {% else %}
+                        <i class="la la-pencil"></i>
+                    {% endif %}
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    {{ content_title }}
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="dropdown dropdown-inline">
+                        <button type="submit" form="form"
+                                class="btn btn-brand btn-icon-sm">
+                            <i class="la la-save"></i> {% trans 'save'|capfirst %}
+                        </button>
+                        <a href="{% url 'unpleasant_customer_list' %}" class="btn btn-danger btn-icon-sm">
+                            <i class="la la-ban"></i> {% trans 'cancel'|capfirst %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <form method="post" id="form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="id_{{ form.email.name }}">
+                                    {{ form.email.label }} <span class="text-danger"><b>*</b></span>
+                                </label>
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_{{ form.reason.name }}">
+                                    {{ form.reason.label }} <span class="text-danger"><b>*</b></span>
+                                </label>
+                                {{ form.reason }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

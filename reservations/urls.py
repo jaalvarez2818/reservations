@@ -16,15 +16,22 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.urls import path
 
 from misc.views.reservation import ReservationListView, ReservationApproveView, ReservationRejectView, \
     ReservationExecuteView, ReservationNotExecuteView, ReservationDetailView, ReservationPDFView, LocatorView, \
     StatisticsView
+from misc.views.unpleasant_customer import UnpleasantCustomerListView, UnpleasantCustomerActiveView, \
+    UnpleasantCustomerUpdateView, UnpleasantCustomerCreateView
 
 urlpatterns = i18n_patterns(
     path('', ReservationListView.as_view(), name='reservation_list'),
+    path('unpleasant_customers', UnpleasantCustomerListView.as_view(), name='unpleasant_customer_list'),
+    path('unpleasant_customers/create', UnpleasantCustomerCreateView.as_view(), name='unpleasant_customer_create'),
+    path('unpleasant_customers/active/<int:pk>', UnpleasantCustomerActiveView.as_view(),
+         name='unpleasant_customer_active'),
+    path('unpleasant_customers/update/<int:pk>', UnpleasantCustomerUpdateView.as_view(),
+         name='unpleasant_customer_update'),
     path('locator', LocatorView.as_view(), name='locator'),
     path('statistics', StatisticsView.as_view(), name='statistics'),
     path('approve/<str:pk>', ReservationApproveView.as_view(), name='reservation_approve'),
