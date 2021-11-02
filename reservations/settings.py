@@ -118,7 +118,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-TIME_ZONE = 'America/Havana'
+TIME_ZONE = 'UTC+2'
 
 USE_I18N = True
 
