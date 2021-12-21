@@ -4,6 +4,7 @@ APPROVE = _('approve')
 APPROVED = _('approved')
 
 CREATE_UNPLEASANT_CUSTOMER = _('create unpleasant customer')
+CREATE_RESERVATION = _('create reservation')
 
 DATETIME = _('datetime')
 DETAILS = _('details')
@@ -29,6 +30,8 @@ NO_RECORDS = _('no records')
 NOT_EXECUTE = _('not execute')
 NOT_EXECUTED = _('not executed')
 NUMBER = _('number')
+
+QTY = _('qty')
 
 PENDENT = _('pendent')
 PHONE = _('phone')

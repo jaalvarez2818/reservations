@@ -1,11 +1,13 @@
+from datetime import datetime
 from django.contrib import messages
-from django.db.models import Sum
+from django.db.models import Sum, Q
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
 
-from misc.models import Reservation, RoomTypology
+from misc.models import Reservation, RoomTypology, UnpleasantCustomer
 from misc.models.reservation import STATUS
 from misc.utils import words
 from misc.utils.pdf import export_pdf_from_html
@@ -165,3 +167,40 @@ class StatisticsView(TemplateView):
             }
         })
         return context
+
+
+class ReservationCreateView(View):
+    def get(self, request, *args, **kwargs):
+        title = words.CREATE_RESERVATION.capitalize()
+        room_typologies = RoomTypology.objects.filter(is_active=True)
+        return render(request, 'reservation/create.html', locals())
+
+
+class CheckAvailabilityView(View):
+    def get(self, request, *args, **kwargs):
+        room_typology = request.GET.get('room_typology')
+        start = datetime.strptime(request.GET.get('start_date'), '%m/%d/%Y')
+        end = datetime.strptime(request.GET.get('end_date'), '%m/%d/%Y')
+        try:
+            room_typology = RoomTypology.objects.get(pk=room_typology, is_active=True)
+
+            count = Reservation.objects.filter(
+                Q(start_date__lte=start, end_date__gte=start) | Q(start_date__lte=end, end_date__gte=end) | Q(
+                    start_date__gte=start, end_date__lte=end), room_typology_id=room_typology).exclude(
+                status__in=['rejected', 'not_executed']).count()
+
+            if count < room_typology.qty:
+                return JsonResponse(safe=False, data={'availability': True, 'max': room_typology.max_people})
+            return JsonResponse(safe=False, data={'availability': False})
+
+        except RoomTypology.DoesNotExist:
+            return JsonResponse(safe=False, data={'error': True})
+
+
+class CheckPersonView(View):
+    def get(self, request, *args, **kwargs):
+        email = request.GET.get('email')
+
+        if UnpleasantCustomer.objects.filter(email=email).exists():
+            return JsonResponse(safe=False, data={'can_reservate': False})
+        return JsonResponse(safe=False, data={'can_reservate': True})

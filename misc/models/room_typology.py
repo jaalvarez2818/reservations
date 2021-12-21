@@ -7,6 +7,7 @@ from misc.utils import words
 class RoomTypology(Active):
     name = models.CharField(max_length=50, verbose_name=words.NAME)
     max_people = models.PositiveSmallIntegerField(verbose_name=words.MAX_PEOPLE)
+    qty = models.PositiveSmallIntegerField(verbose_name=words.QTY)
     price = models.FloatField(verbose_name=words.PRICE)
 
     class Meta:

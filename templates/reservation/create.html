@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static i18n custom_filters %}
+
+{% block css %}
+    <link href="{% static 'plugins/wizard/wizard-v1.default.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'plugins/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <i class="la la-plus"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    {% trans 'create reservation'|capfirst %}
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="dropdown dropdown-inline">
+                        <a href="{% url 'reservation_list' %}" class="btn btn-danger btn-icon-sm">
+                            <i class="la la-ban"></i> {% trans 'cancel'|capfirst %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <div class="kt-grid  kt-wizard-v1 kt-wizard-v1--white" id="kt_wizard_v1" data-ktwizard-state="step-first">
+                <div class="kt-grid__item">
+                    <div class="kt-wizard-v1__nav">
+                        <div class="kt-wizard-v1__nav-items justify-content-center">
+                            <a class="kt-wizard-v1__nav-item" href="#" data-ktwizard-type="step"
+                               data-ktwizard-state="current">
+                                <div class="kt-wizard-v1__nav-body">
+                                    <div class="kt-wizard-v1__nav-icon">
+                                        <i class="flaticon-search"></i>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-label">
+                                        1) {% trans 'check availability'|capfirst %}
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="kt-wizard-v1__nav-item" href="#" data-ktwizard-type="step">
+                                <div class="kt-wizard-v1__nav-body">
+                                    <div class="kt-wizard-v1__nav-icon">
+                                        <i class="flaticon-user"></i>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-label">
+                                        2) {% trans 'enter your information'|capfirst %}
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="kt-wizard-v1__nav-item" href="#" data-ktwizard-type="step">
+                                <div class="kt-wizard-v1__nav-body">
+                                    <div class="kt-wizard-v1__nav-icon">
+                                        <i class="flaticon-list"></i>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-label">
+                                        3) {% trans 'review and submit'|capfirst %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                    <form class="kt-form" id="kt_form">
+
+                        <div class="kt-wizard-v1__content" data-ktwizard-type="step-content"
+                             data-ktwizard-state="current">
+                            <div class="kt-heading kt-heading--md">{% trans 'check availability'|capfirst %}</div>
+                            <div class="kt-form__section kt-form__section--first">
+                                <div class="kt-wizard-v1__form">
+                                    <div class="form-group">
+                                        <label for="room_typology">
+                                            {% trans 'room typology'|capfirst %}
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select id="room_typology" class="form-control" required>
+                                            {% for typology in room_typologies %}
+                                                <option value="{{ typology.pk }}">{{ typology.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kt_daterangepicker_1">
+                                            {% trans 'date range'|capfirst %}
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="kt_daterangepicker_1" readonly
+                                               placeholder="{% trans 'select date range'|capfirst %}" required/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                            <div class="kt-heading kt-heading--md">{% trans 'enter your information'|capfirst %}</div>
+                            <div class="kt-form__section kt-form__section--first">
+                                <div class="kt-wizard-v1__form">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="guests">
+                                                {% trans 'guests'|capfirst %}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="number" class="form-control" name="guests" id="guests"
+                                                   placeholder="{% trans 'guests'|capfirst %}" min="1" value="1"
+                                                   required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <div class="form-group">
+                                                <label for="name">
+                                                    {% trans 'name'|capfirst %}
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" name="name" id="name"
+                                                       placeholder="{% trans 'name'|capfirst %}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="email">
+                                                {% trans 'email'|capfirst %}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="email" class="form-control" name="email" id="email"
+                                                   placeholder="{% trans 'email'|capfirst %}" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="phone">
+                                                {% trans 'phone'|capfirst %}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="tel" class="form-control" name="phone" id="phone"
+                                                   placeholder="{% trans 'phone'|capfirst %}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                            <div class="kt-heading kt-heading--md">{% trans 'review and submit'|capfirst %}</div>
+                            <div class="kt-form__section kt-form__section--first">
+                                <div class="kt-wizard-v1__form">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kt-form__actions">
+                            <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                 data-ktwizard-type="action-prev">
+                                {% trans 'previous'|capfirst %}
+                            </div>
+                            <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                 data-ktwizard-type="action-submit">
+                                {% trans 'reservate'|capfirst %}
+                            </div>
+                            <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                 data-ktwizard-type="action-next">
+                                {% trans 'next'|capfirst %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'plugins/jquery-validation/dist/jquery.validate.js' %}" type="text/javascript"></script>
+    <script src="{% static 'plugins/jquery-validation/dist/additional-methods.js' %}" type="text/javascript"></script>
+    <script src="{% static 'plugins/jquery-validation/init.js' %}" type="text/javascript"></script>
+    <script src="{% static 'plugins/bootstrap-daterangepicker/daterangepicker.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap-daterangepicker.js' %}" type="text/javascript"></script>
+    <script src="{% static 'plugins/wizard/wizard-v1.js' %}" type="text/javascript"></script>
+{% endblock %}

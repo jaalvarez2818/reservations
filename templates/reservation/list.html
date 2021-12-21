@@ -27,10 +27,9 @@
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="dropdown dropdown-inline">
-                        <button type="button" class="btn btn-brand btn-icon-sm" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                        <a href="{% url 'reservation_create' %}" class="btn btn-brand btn-icon-sm">
                             <i class="flaticon2-plus"></i> {% trans 'reservate'|capfirst %}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -76,6 +75,7 @@
                         <table class="table">
                             <thead>
                             <tr>
+                                <th class="text-center font-weight-bold">{% trans 'locator'|upper %}</th>
                                 <th class="text-center font-weight-bold">{% trans 'name'|upper %}</th>
                                 <th class="text-center font-weight-bold">{% trans 'start date'|upper %}</th>
                                 <th class="text-center font-weight-bold">{% trans 'end date'|upper %}</th>
@@ -88,6 +88,13 @@
                             <tbody>
                             {% for item in object_list %}
                                 <tr>
+                                    <td class="text-center">
+                                        <a href="{% url 'reservation_details' item.locator %}"
+                                           title="{% trans 'view details'|capfirst %}"
+                                           data-toggle="kt-tooltip" data-skin="dark">
+                                            <b>{{ item.locator }}</b>
+                                        </a>
+                                    </td>
                                     <td class="text-center">{{ item.name }}</td>
                                     <td class="text-center">{{ item.start_date|show_date|safe }}</td>
                                     <td class="text-center">{{ item.end_date|show_date|safe }}</td>

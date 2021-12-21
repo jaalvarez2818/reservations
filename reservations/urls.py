@@ -20,12 +20,14 @@ from django.urls import path
 
 from misc.views.reservation import ReservationListView, ReservationApproveView, ReservationRejectView, \
     ReservationExecuteView, ReservationNotExecuteView, ReservationDetailView, ReservationPDFView, LocatorView, \
-    StatisticsView
+    StatisticsView, ReservationCreateView, CheckAvailabilityView, CheckPersonView
+from misc.views.room_typology import RoomTypologyListView
 from misc.views.unpleasant_customer import UnpleasantCustomerListView, UnpleasantCustomerActiveView, \
     UnpleasantCustomerUpdateView, UnpleasantCustomerCreateView
 
 urlpatterns = i18n_patterns(
     path('', ReservationListView.as_view(), name='reservation_list'),
+    path('room_typologies', RoomTypologyListView.as_view(), name='room_typology_list'),
     path('unpleasant_customers', UnpleasantCustomerListView.as_view(), name='unpleasant_customer_list'),
     path('unpleasant_customers/create', UnpleasantCustomerCreateView.as_view(), name='unpleasant_customer_create'),
     path('unpleasant_customers/active/<int:pk>', UnpleasantCustomerActiveView.as_view(),
@@ -33,6 +35,7 @@ urlpatterns = i18n_patterns(
     path('unpleasant_customers/update/<int:pk>', UnpleasantCustomerUpdateView.as_view(),
          name='unpleasant_customer_update'),
     path('locator', LocatorView.as_view(), name='locator'),
+    path('create', ReservationCreateView.as_view(), name='reservation_create'),
     path('statistics', StatisticsView.as_view(), name='statistics'),
     path('approve/<str:pk>', ReservationApproveView.as_view(), name='reservation_approve'),
     path('reject/<str:pk>', ReservationRejectView.as_view(), name='reservation_reject'),
@@ -40,6 +43,8 @@ urlpatterns = i18n_patterns(
     path('not_execute/<str:pk>', ReservationNotExecuteView.as_view(), name='reservation_not_execute'),
     path('details/<str:locator>', ReservationDetailView.as_view(), name='reservation_details'),
     path('pdf/<str:locator>', ReservationPDFView.as_view(), name='reservation_pdf'),
+    path('availability', CheckAvailabilityView.as_view(), name='check_availability'),
+    path('check_person', CheckPersonView.as_view(), name='check_person'),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
