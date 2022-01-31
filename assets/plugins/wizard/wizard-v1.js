@@ -21,8 +21,7 @@ var KTWizard1 = function () {
                     if (range[0] === range[1]) {
                         toastr.error('Debe reservar al menos por un día.');
                         wizardObj.stop();
-                    }
-                    else {
+                    } else {
                         $.ajax({
                             url: '/availability',
                             data: {
@@ -33,11 +32,18 @@ var KTWizard1 = function () {
                             type: 'GET',
                             async: false,
                             success: function (data) {
-                                if (!data.availability) {
-                                    toastr.error('No tenemos habitaciones disponibles.');
+                                if (data.error) {
+                                    toastr.error(data.message);
                                     wizardObj.stop();
                                 } else {
-                                    $('#guests').prop('max', data.max);
+                                    if (!data.availability) {
+                                        toastr.error(data.message);
+                                        wizardObj.stop();
+                                    } else {
+                                        $('#guests').prop('max', data.max);
+                                        $('#room_typology_abstract').text($('#room_typology option:selected').text());
+                                        $('#date_range_abstract').text($('#kt_daterangepicker_1').val());
+                                    }
                                 }
                             },
                             error: function (data) {
@@ -56,8 +62,13 @@ var KTWizard1 = function () {
                         async: false,
                         success: function (data) {
                             if (!data.can_reservate) {
-                                toastr.error('Usted no puede reservar habitaciones.');
+                                toastr.error(data.message);
                                 wizardObj.stop();
+                            } else {
+                                $('#guests_abstract').text($('#guests').val());
+                                $('#name_abstract').text($('#name').val());
+                                $('#email_abstract').text($('#email').val());
+                                $('#phone_abstract').text($('#phone').val());
                             }
                         },
                         error: function (data) {
@@ -109,7 +120,6 @@ var KTWizard1 = function () {
             },
 
             submitHandler: function (form) {
-
             }
         });
     };
@@ -123,17 +133,26 @@ var KTWizard1 = function () {
             if (validator.form()) {
                 KTApp.progress(btn);
 
-                formEl.ajaxSubmit({
-                    success: function () {
-                        KTApp.unprogress(btn);
-                        //KTApp.unblock(formEl);
+                var $form = $('#kt_form');
 
-                        swal.fire({
-                            "title": "",
-                            "text": "The application has been successfully submitted!",
-                            "type": "success",
-                            "confirmButtonClass": "btn btn-secondary"
-                        });
+                var url = $form.prop('action');
+
+                $.ajax({
+                    url: url,
+                    data: $form.serialize(),
+                    type: 'POST',
+                    async: false,
+                    success: function (data) {
+                        if (data.error) {
+                            toastr.error(data.message);
+                        } else {
+                            window.location.href = data.redirect_to;
+                        }
+                        KTApp.unprogress(btn);
+                    },
+                    error: function (data) {
+                        toastr.error('Error de servidor.');
+                        KTApp.unprogress(btn);
                     }
                 });
             }

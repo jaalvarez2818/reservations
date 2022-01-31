@@ -30,7 +30,7 @@ class Reservation(models.Model):
     phone = PhoneNumberField(verbose_name=words.PHONE)
     price = models.FloatField(verbose_name=words.PRICE)
     locator = models.CharField(max_length=16, verbose_name=words.LOCATOR, unique=True)
-    room = models.ForeignKey(Room, verbose_name=words.ROOM, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, verbose_name=words.ROOM, on_delete=models.CASCADE, null=True, blank=True)
     datetime = models.DateTimeField(auto_now_add=True, verbose_name=words.DATETIME)
     status = models.CharField(max_length=12, verbose_name=words.STATUS, choices=STATUS)
 

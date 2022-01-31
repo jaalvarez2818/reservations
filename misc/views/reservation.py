@@ -4,6 +4,7 @@ from django.db.models import Sum, Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse
+from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
 
@@ -175,12 +176,71 @@ class ReservationCreateView(View):
         room_typologies = RoomTypology.objects.filter(is_active=True)
         return render(request, 'reservation/create.html', locals())
 
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+
+            dates = request.POST.get('dates').split(' - ')
+            start = datetime.strptime(dates[0], '%m/%d/%Y')
+            end = datetime.strptime(dates[1], '%m/%d/%Y')
+
+            if start.date() < timezone.now().date():
+                return JsonResponse(safe=False,
+                                    data={'error': True, 'message': words.START_DATE_GREATER_THAN_CURRENT.capitalize()})
+
+            if UnpleasantCustomer.objects.filter(email=request.POST.get('email'), is_active=True).exists():
+                return JsonResponse(safe=False,
+                                    data={'error': True, 'message': words.YOU_NOT_RESERVATIONS.capitalize()})
+
+            try:
+                room_typology = RoomTypology.objects.get(pk=request.POST.get('room_typology'), is_active=True)
+
+                count = Reservation.objects.filter(
+                    Q(start_date__lte=start, end_date__gte=start) | Q(start_date__lte=end, end_date__gte=end) | Q(
+                        start_date__gte=start, end_date__lte=end), room_typology_id=room_typology).exclude(
+                    status__in=['rejected', 'not_executed']).count()
+
+                if count >= room_typology.qty:
+                    return JsonResponse(safe=False,
+                                        data={'error': True, 'message': words.NOT_AVAILABILITY.capitalize()})
+
+                Reservation.objects.create(
+                    start_date=start.date(),
+                    end_date=end.date(),
+                    room_typology=room_typology,
+                    guests=request.POST.get('guests'),
+                    name=request.POST.get('name'),
+                    email=request.POST.get('email'),
+                    phone=request.POST.get('phone'),
+                    price=room_typology.price * int(request.POST.get('guests')),
+                    status='pendent'
+                )
+
+                messages.success(request, words.RESERVATION_CREATED.capitalize())
+
+                return JsonResponse(
+                    safe=False,
+                    data={'error': False, 'redirect_to': reverse('reservation_list')}
+                )
+
+            except RoomTypology.DoesNotExist:
+                return JsonResponse(safe=False, data={'error': True, 'message': words.TYPOLOGY_NOT_EXISTS.capitalize()})
+
+        return JsonResponse(
+            safe=False,
+            data={'error': True, 'message': words.INVALID_REQUEST.capitalize()}
+        )
+
 
 class CheckAvailabilityView(View):
     def get(self, request, *args, **kwargs):
         room_typology = request.GET.get('room_typology')
         start = datetime.strptime(request.GET.get('start_date'), '%m/%d/%Y')
         end = datetime.strptime(request.GET.get('end_date'), '%m/%d/%Y')
+
+        if start.date() < timezone.now().date():
+            return JsonResponse(safe=False,
+                                data={'error': True, 'message': words.START_DATE_GREATER_THAN_CURRENT.capitalize()})
+
         try:
             room_typology = RoomTypology.objects.get(pk=room_typology, is_active=True)
 
@@ -191,16 +251,18 @@ class CheckAvailabilityView(View):
 
             if count < room_typology.qty:
                 return JsonResponse(safe=False, data={'availability': True, 'max': room_typology.max_people})
-            return JsonResponse(safe=False, data={'availability': False})
+            return JsonResponse(safe=False,
+                                data={'availability': False, 'message': words.NOT_AVAILABILITY.capitalize()})
 
         except RoomTypology.DoesNotExist:
-            return JsonResponse(safe=False, data={'error': True})
+            return JsonResponse(safe=False, data={'error': True, 'message': words.TYPOLOGY_NOT_EXISTS.capitalize()})
 
 
 class CheckPersonView(View):
     def get(self, request, *args, **kwargs):
         email = request.GET.get('email')
 
-        if UnpleasantCustomer.objects.filter(email=email).exists():
-            return JsonResponse(safe=False, data={'can_reservate': False})
+        if UnpleasantCustomer.objects.filter(email=email, is_active=True).exists():
+            return JsonResponse(safe=False,
+                                data={'can_reservate': False, 'message': words.YOU_NOT_RESERVATIONS.capitalize()})
         return JsonResponse(safe=False, data={'can_reservate': True})

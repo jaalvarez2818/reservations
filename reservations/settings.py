@@ -174,4 +174,5 @@ if platform.system() == 'Windows':
     PDF_CONFIG = pdfkit.configuration(
         wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'))
 else:
-    PDF_CONFIG = pdfkit.configuration(wkhtmltopdf='./bin/wkhtmltopdf')
+    # PDF_CONFIG = pdfkit.configuration(wkhtmltopdf='./bin/wkhtmltopdf')
+    PDF_CONFIG = pdfkit.configuration(wkhtmltopdf=r'/usr/bin/wkhtmltopdf')
