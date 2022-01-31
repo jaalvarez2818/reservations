@@ -116,7 +116,7 @@ var KTWizard1 = function () {
 
             invalidHandler: function (event, validator) {
                 KTUtil.scrollTop();
-                toastr.error('No tenemos habitaciones disponibles.');
+                toastr.error('Please, correct the errors.');
             },
 
             submitHandler: function (form) {
